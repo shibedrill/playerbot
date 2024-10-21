@@ -1,0 +1,16 @@
+[package]
+name = "playerbot"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1.0.90"
+dotenvy = "0.15.7"
+log = "0.4.22"
+poise = "0.6.1"
+pretty_env_logger = "0.5.0"
+reqwest = {version = "0.12.8", features = ["json"]}
+serde = {version = "1.0.210", features = ["derive", "serde_derive"]}
+serde_json = {version = "1.0.132", features = []}
+tokio = {version = "1.40.0", features = ["full"]}
+url = "2.5.2"
