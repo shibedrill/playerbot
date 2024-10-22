@@ -1,11 +1,11 @@
 pub struct ServerResponse {
     online: bool,
-    players: u32,
-    max: u32,
+    players: Option<u32>,
+    max: Option<u32>,
 }
 
 impl ServerResponse {
-    pub fn new(online: bool, players: u32, max: u32) -> Self {
+    pub fn new(online: bool, players: Option<u32>, max: Option<u32>) -> Self {
         ServerResponse {
             online,
             players,
@@ -17,11 +17,11 @@ impl ServerResponse {
         self.online
     }
 
-    pub fn players(&self) -> u32 {
+    pub fn players(&self) -> Option<u32> {
         self.players
     }
 
-    pub fn max(&self) -> u32 {
+    pub fn max(&self) -> Option<u32> {
         self.max
     }
 
@@ -30,6 +30,10 @@ impl ServerResponse {
     }
 
     pub fn to_string(&self) -> String {
-        format!("{}/{} ({})", self.players, self.max, self.online)
+        if let (Some(players), Some(max)) = (self.players, self.max) {
+            format!("{}/{} ({})", players, max, self.online)
+        } else {
+            format!("N/A ({})", self.online)
+        }
     }
 }

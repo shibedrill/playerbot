@@ -6,7 +6,11 @@ pub fn set_presence(ctx: &poise::serenity_prelude::Context, status: ServerRespon
     ctx.set_presence(
         Some(ActivityData::custom(match status.online() {
             true => {
-                format!("{}/{} players online", status.players(), status.max())
+                format!(
+                    "{}/{} players online",
+                    status.players().unwrap(),
+                    status.max().unwrap()
+                )
             }
             false => "Server offline!".to_string(),
         })),
