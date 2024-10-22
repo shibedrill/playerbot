@@ -17,13 +17,14 @@ pub struct Data {
 
 #[derive(Clone)]
 pub struct Scpsl {
+    name: String,
     url: Url,
     token: String,
 }
 
 impl Scpsl {
-    pub fn new(url: Url, token: String) -> Self {
-        Self { url, token }
+    pub fn new(url: Url, token: String, name: String) -> Self {
+        Self { url, token, name }
     }
     async fn get_status(&self) -> Result<ServerResponse, anyhow::Error> {
         let http_client = Client::new();
@@ -91,9 +92,13 @@ pub async fn event_handler(
                 .controller
                 .get_status()
                 .await
-                .inspect_err(|e| error!("Failed to get status: {}", e))
+                .inspect_err(|e| error!("{}: Failed to get status: {}", data.controller.name, e))
                 .unwrap();
-            info!("Got status: {}", status.to_string());
+            info!(
+                "{}: Got status: {}",
+                data.controller.name,
+                status.to_string()
+            );
 
             funcs::set_presence(ctx, status);
             tokio::time::sleep(std::time::Duration::from_secs(30)).await;
