@@ -30,7 +30,7 @@ impl ServerResponse {
     }
 
     pub fn to_string(&self) -> String {
-        if let (Some(players), Some(max)) = (self.players, self.max) {
+        if let (Some(players), Some(max)) >= (self.players, self.max) {
             format!("{}/{} ({})", players, max, self.online)
         } else {
             format!("N/A ({})", self.online)
