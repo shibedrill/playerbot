@@ -12,16 +12,16 @@ struct ServerSummary {
 }
 
 pub struct Data {
-    controller: SCPSL,
+    controller: Scpsl,
 }
 
 #[derive(Clone)]
-pub struct SCPSL {
+pub struct Scpsl {
     url: Url,
     token: String,
 }
 
-impl SCPSL {
+impl Scpsl {
     pub fn new(url: Url, token: String) -> Self {
         Self { url, token }
     }
@@ -38,8 +38,8 @@ impl SCPSL {
 
         Ok(ServerResponse::new(
             data.online,
-            playercount_unwrapped.get(0).map(|u| u.clone()),
-            playercount_unwrapped.get(1).map(|u| u.clone()),
+            playercount_unwrapped.first().copied(),
+            playercount_unwrapped.get(1).copied(),
         ))
     }
 

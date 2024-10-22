@@ -98,7 +98,7 @@ pub async fn event_handler(
                 .unwrap();
             info!("Got status: {}", status.to_string());
 
-            funcs::set_presence(&ctx, status);
+            funcs::set_presence(ctx, status);
             tokio::time::sleep(std::time::Duration::from_secs(30)).await;
         },
         _ => Ok(()),

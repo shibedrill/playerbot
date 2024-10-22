@@ -4,7 +4,7 @@ mod scpsl;
 mod types;
 use dotenvy::{self, dotenv};
 use minecraft::Minecraft;
-use scpsl::SCPSL;
+use scpsl::Scpsl;
 use tokio::join;
 use url::{self, Url};
 
@@ -23,7 +23,7 @@ async fn main() {
         Url::try_from("https://api.mcstatus.io/v2/status/java/mchprs.shibedrill.site").unwrap(),
         std::env::var("TOKEN_BOT_MC_MCHPRS").unwrap(),
     );
-    let scpsl = SCPSL::new(
+    let scpsl = Scpsl::new(
         Url::try_from("https://api.scplist.kr/api/servers/81460").unwrap(),
         std::env::var("TOKEN_BOT_SCPSL").unwrap(),
     );
