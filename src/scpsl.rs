@@ -4,7 +4,7 @@ use reqwest::{Client, Request};
 use serenity::*;
 use url::Url;
 
-#[derive(serde::Deserialize)]
+#[derive(serde::Deserialize, Debug)]
 #[allow(non_snake_case)]
 struct ServerSummary {
     online: bool,
@@ -31,6 +31,8 @@ impl Scpsl {
         let request = Request::new(reqwest::Method::GET, self.url.clone());
         let response = http_client.execute(request).await?;
         let data: ServerSummary = serde_json::from_str(&response.text().await?)?;
+
+        trace!("Response JSON for {}: {:#?}", self.name, data); // this is the only thing I added.
 
         let playercount: Result<Vec<u32>, _> =
             data.players.split('/').map(|x| x.parse::<u32>()).collect();

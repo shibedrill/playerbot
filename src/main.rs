@@ -28,7 +28,7 @@ async fn main() {
     let scpsl = Scpsl::new(
         Url::try_from("https://api.scplist.kr/api/servers/81460").unwrap(),
         std::env::var("TOKEN_BOT_SCPSL").unwrap(),
-        "SCP: SL".into(),
+        "SCP:SL".into(),
     );
     join!(scpsl.run(), mchprs.run(), gamerzone.run());
 }

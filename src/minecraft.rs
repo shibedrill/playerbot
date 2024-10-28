@@ -5,13 +5,13 @@ use url::Url;
 
 use crate::{funcs, types::ServerResponse};
 
-#[derive(serde::Deserialize)]
+#[derive(serde::Deserialize, Debug)]
 struct ServerSummary {
     online: bool,
     players: Option<Players>,
 }
 
-#[derive(serde::Deserialize)]
+#[derive(serde::Deserialize, Debug)]
 struct Players {
     online: i32,
     max: i32,
@@ -38,6 +38,9 @@ impl Minecraft {
         let request = Request::new(reqwest::Method::GET, self.url.clone());
         let response = http_client.execute(request).await?;
         let data: ServerSummary = serde_json::from_str(&response.text().await?)?;
+
+        trace!("Response JSON for {}: {:#?}", self.name, data); // this
+
         if let Some(players) = data.players {
             Ok(ServerResponse::new(
                 data.online,
