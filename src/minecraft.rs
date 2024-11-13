@@ -35,8 +35,11 @@ impl Minecraft {
 
     pub async fn get_status(&self) -> Result<ServerResponse, anyhow::Error> {
         let http_client = Client::new();
+        trace!("Created HTTP client");
         let request = Request::new(reqwest::Method::GET, self.url.clone());
+        trace!("Created HTTP request");
         let response = http_client.execute(request).await?;
+        trace!("Ran request using client");
         let data: ServerSummary = serde_json::from_str(&response.text().await?)?;
 
         trace!("Response JSON for {}: {:#?}", self.name, data); // this
@@ -94,6 +97,7 @@ pub async fn event_handler(
         serenity::FullEvent::Ready {
             data_about_bot: _bot_data,
         } => loop {
+            trace!("Running loop routine");
             let status = data
                 .controller
                 .get_status()
