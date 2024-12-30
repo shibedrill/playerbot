@@ -16,9 +16,9 @@ async fn main() {
     dotenv().ok();
     pretty_env_logger::init();
     let gamerzone = Minecraft::new(
-        Url::try_from("https://api.mcstatus.io/v2/status/java/gamer.shibedrill.site").unwrap(),
-        std::env::var("TOKEN_BOT_MC_GAMER").unwrap(),
-        "Gamer SMP".into(),
+        Url::try_from("https://api.mcstatus.io/v2/status/java/bleat.shibedrill.site").unwrap(),
+        std::env::var("TOKEN_BOT_MC_BLEAT").unwrap(),
+        "DeersCord SMP".into(),
     );
     let mchprs = Minecraft::new(
         Url::try_from("https://api.mcstatus.io/v2/status/java/mchprs.shibedrill.site").unwrap(),
